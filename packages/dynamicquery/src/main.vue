@@ -11,7 +11,7 @@
       @click.native="disabled?'':open()">
       <el-button slot="append" icon="el-icon-search" />
     </el-input>
-    <el-dialog :visible.sync="box" title="请选择" append-to-body width="50%" @close="close">
+    <el-dialog :visible.sync="box" title="请选择" append-to-body width="50%" >
       <el-input v-model="filterText" style="margin-bottom:15px;" placeholder="输入关键字进行过滤" />
       <div class="avue-dialog">
         <el-row :gutter="1">
@@ -118,7 +118,7 @@ export default {
       type: [String, Array, Number],
       default: ''
     },
-    data: {
+    dic: {
       type: Array,
       required: true,
       default: () => {
@@ -131,13 +131,13 @@ export default {
     },
     placeholder: {
       type: String,
-      default: '请选择'
+      default: '请选择...'
     },
     multiple: {
       type: Boolean,
       default: false
     },
-    option: {
+    options: {
       type: Object,
       required: true,
       default: () => {
@@ -172,19 +172,18 @@ export default {
   },
   watch: {
     value() {
-      this.text = this.value
-      this.init()
+      // this.init()
     },
     filterText(val) {
       this.searchChange(val)
     },
-    data() {
+    dic() {
       this.dataInit()
     }
   },
   created() {
     this.text = this.value
-    this.tableOption = deepClone(this.option)
+    this.tableOption = deepClone(this.options)
     // 初始化数据
     this.dataInit()
     this.columnOption = this.tableOption.column || []
@@ -202,23 +201,24 @@ export default {
         this.labelText = '获取中...'
       }
       const check = setInterval(() => {
-        if (this.data.length > 0) {
+        if (this.list.length > 0) {
+          this.tableSelect = []
           if (this.multiple) {
             this.labelText = []
-            this.tableSelect = []
             if (this.text) {
               this.text.forEach(ele => {
                 this.findLabel(this.list, ele, this.props)
               })
             }
           } else {
+            this.labelText = ''
             this.findLabel(this.list, this.text, this.props)
           }
           clearInterval(check)
         } else {
           this.labelText = ''
         }
-      }, 300)
+      }, 100)
     },
     findLabel(data, value, props) {
       const labelKey = props.label
@@ -232,7 +232,7 @@ export default {
       })
     },
     dataInit() {
-      this.list = [].concat(this.data)
+      this.list = [].concat(this.dic)
       // 初始化序号
       this.list.forEach((ele, index) => {
         ele.$index = index
@@ -311,7 +311,7 @@ export default {
           }
         })
         clearInterval(check)
-      }, 300)
+      }, 100)
     },
     handleChange() {
       if (this.multiple) {
@@ -352,6 +352,7 @@ export default {
       // 移除表格选中
       const row = this.list.find(item => item[this.props.value] === currItem.value)
       this.multiple ? this.$refs.queryTable.toggleRowSelection(row, false) : this.$refs.queryTable.setCurrentRow()
+      this.handleChange()
     }
   }
 }

@@ -3,16 +3,14 @@
     <avue-dynamicquery
       :placeholder="placeholder"
       :multiple="true"
-      :data="data"
-      :option="option"
+      :dic="data"
+      :options="option"
       :value="value"
-      label="test"
       @search-change="searchChange"/>
   </div>
 </template>
 <script>
 export default {
-  label: 'test',
   data: () => ({
     value: [1, 3],
     placeholder: '请选择...',
