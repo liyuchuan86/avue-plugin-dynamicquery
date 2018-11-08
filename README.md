@@ -2,7 +2,6 @@
 
 ## avue 表格查询框
 
-
 ## Project setup
 ```
 yarn install

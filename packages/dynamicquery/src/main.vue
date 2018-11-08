@@ -12,7 +12,7 @@
       <el-button slot="append" icon="el-icon-search" />
     </el-input>
     <el-dialog :visible.sync="box" title="请选择" append-to-body width="50%" >
-      <el-input v-model="filterText" style="margin-bottom:15px;" placeholder="输入关键字进行过滤" />
+      <el-input v-model="filterText" style="margin-bottom:15px;" placeholder="输入关键字进行过滤" size="small"/>
       <div class="avue-dialog">
         <el-row :gutter="1">
           <el-col :span="16">
@@ -66,8 +66,8 @@
             </div>
           </el-col>
           <el-col :span="8">
-            <el-card shadow="never" size="mini" height="250" class="selectdata">
-              <div slot="header">
+            <el-card shadow="never" size="mini" class="selectdata" >
+              <div slot="header" class="clearfix">
                 <span>已选择项</span>
               </div>
               <div v-for="item in tableSelect" :key="item.value" class="selectitem" @click="itemClick">
@@ -363,9 +363,14 @@ export default {
     overflow: hidden;
     overflow-y: auto;
 }
+.selectdata{
+  height: 249px;
+}
 .selectdata .el-card__body {
-    height: 180px;
-    padding:10px
+    min-height: 180px;
+    max-height: 180px;
+    padding:10px;
+    overflow-y:auto
 }
 .selectdata .el-card__header{
   padding:14px
@@ -376,6 +381,7 @@ export default {
     background-color: #ecf5ff;
     padding:2px;
     border:1px solid #ebeef5;
+    height: 20px;
 }
 .selectdata .selectitem:hover{
     font-size: 14px;
@@ -385,4 +391,13 @@ export default {
     border:1px solid #ebeef5;
     cursor: pointer;
 }
+ .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+
 </style>
