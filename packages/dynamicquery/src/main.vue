@@ -90,10 +90,6 @@ import dayjs from 'dayjs'
 export default {
   name: 'AvueDynamicquery',
   props: {
-    checked: {
-      type: Function,
-      default: function() {}
-    },
     disabled: {
       type: Boolean,
       default: false
@@ -175,7 +171,8 @@ export default {
       // this.init()
     },
     filterText(val) {
-      this.searchChange(val)
+      // this.searchChange(val)
+      if (typeof this.searchChange === 'function') this.searchChange(val)
     },
     dic() {
       this.dataInit()
@@ -280,7 +277,10 @@ export default {
     },
     // 搜索回调
     searchChange(val) {
-      this.$emit('search-change', val)
+      // this.$emit('search-change', val)
+      if (typeof this.tableOption.searchChange === 'function') {
+        this.dic = this.tableOption.searchChange(val)
+      }
     },
     // 行单击
     rowClick(row, event, column) {
@@ -333,7 +333,6 @@ export default {
       if (typeof this.change === 'function') {
         this.change({ value: this.text })
       }
-      if (typeof this.checked === 'function') this.checked(this.text)
       this.$emit('input', this.labelText)
       this.$emit('change', this.text)
     },
