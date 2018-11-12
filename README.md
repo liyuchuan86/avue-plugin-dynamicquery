@@ -4,14 +4,14 @@
 ## avue 表格查询框
 
 ## npm
-[avue-plugin-transfer](https://www.npmjs.com/package/avue-plugin-transfer)
+[avue-plugin-dynamicquery](https://www.npmjs.com/package/avue-plugin-dynamicquery)
 
 ## git
-[avue-plugin-transfer](https://gitee.com/smallweigit/avue-plugin-transfer)
+[avue-plugin-dynamicquery](https://gitee.com/yuchuanli/avue-plugin-dynamicquery)
 
 ## demo
 <p align="center">
-  <img width="600" src="https://gitee.com/smallweigit/avue-plugin-transfer/raw/master/packages/demo/demo.png">
+  <img width="600" src="https://gitee.com/yuchuanli/avue-plugin-dynamicquery/raw/master/packages/demo/demo.png">
 </p>
 
 ## use
