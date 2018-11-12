@@ -1,33 +1,47 @@
+
 # avue-plugin-dynamicquery
 
 ## avue 表格查询框
 
-## Project setup
+## npm
+[avue-plugin-transfer](https://www.npmjs.com/package/avue-plugin-transfer)
+
+## git
+[avue-plugin-transfer](https://gitee.com/smallweigit/avue-plugin-transfer)
+
+## demo
+<p align="center">
+  <img width="600" src="https://gitee.com/smallweigit/avue-plugin-transfer/raw/master/packages/demo/demo.png">
+</p>
+
+## use
 ```
-yarn install
+1.安装
+npm install avue-plugin-dynamicquery --save
+
+2.导入
+import 'avue-plugin-dynamicquery'
+
+3.使用
+...
+column:[
+  ...
+    {
+      label: 'test',
+      prop: 'test',
+      component: 'AvueDynamicquery',
+    }
+  ...
+]
+或者直接
+ <avue-dynamicquery 
+      :placeholder="placeholder"
+      :multiple="true"
+      :dic="data"
+      :options="option"
+      :value="value"/>
+...
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
 
-### Compiles and minifies for production
-```
-yarn run build
-```
 
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Run your unit tests
-```
-yarn run test:unit
-```
-
-### Run your end-to-end tests
-```
-yarn run test:e2e
-```
