@@ -1,11 +1,13 @@
 <template>
-  <div style="width:300px">
+  <div style="width:500px">
     <avue-dynamicquery
       :placeholder="placeholder"
       :multiple="true"
       :dic="data"
       :options="option"
-      :value="value"/>
+      :value="value"
+      v-model="test"/>
+    <el-button type="button" @click="click">点我</el-button>
   </div>
 </template>
 <script>
@@ -230,6 +232,14 @@ export default {
         }
       }
     }
-  })
+  }),
+  methods: {
+    click() {
+      this.$message({
+        message: this.test,
+        type: 'success'
+      })
+    }
+  }
 }
 </script>

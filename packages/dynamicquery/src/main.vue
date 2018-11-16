@@ -333,7 +333,7 @@ export default {
       if (typeof this.change === 'function') {
         this.change({ value: this.text })
       }
-      this.$emit('input', this.labelText)
+      this.$emit('input', this.text)
       this.$emit('change', this.text)
     },
     close() {
