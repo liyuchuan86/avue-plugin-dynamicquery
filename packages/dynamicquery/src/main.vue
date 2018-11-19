@@ -279,7 +279,7 @@ export default {
     searchChange(val) {
       // this.$emit('search-change', val)
       if (typeof this.tableOption.searchChange === 'function') {
-        this.dic = this.tableOption.searchChange(val)
+        this.list = this.tableOption.searchChange(val)
       }
     },
     // 行单击

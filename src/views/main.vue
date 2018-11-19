@@ -92,6 +92,7 @@ export default {
       title: '表格的标题',
       page: false,
       props: { label: 'name', value: 'id' },
+      search: false,
       column: [
         {
           prop: 'id',
