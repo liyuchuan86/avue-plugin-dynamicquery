@@ -6,7 +6,7 @@
       :dic="data"
       :options="option"
       :value="value"
-      v-model="test"/>
+      v-model="value"/>
     <el-button type="button" @click="click">点我</el-button>
   </div>
 </template>
@@ -237,7 +237,7 @@ export default {
   methods: {
     click() {
       this.$message({
-        message: this.test,
+        message: this.value,
         type: 'success'
       })
     }

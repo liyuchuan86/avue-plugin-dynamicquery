@@ -20,7 +20,7 @@
 npm install avue-plugin-dynamicquery --save
 
 2.导入
-import 'avue-plugin-dynamicquery'
+import 'avue-plugin-dynamicquery/packages'
 
 3.使用
 ...
