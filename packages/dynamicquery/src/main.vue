@@ -271,7 +271,9 @@ export default {
     currentChange(val) {
       // 存在配置的currentChangeFunction
       if (this.tableOption.currentChange && this.tableOption.currentChange instanceof Function) {
-        this.list = this.tableOption.currentChange(val)
+        const result = this.tableOption.currentChange(val)
+        this.list = result.data
+        this.pageOption.total = result.total
       }
     },
     // 清除选择
@@ -289,13 +291,17 @@ export default {
     // 排序回调
     sortChange(val) {
       if (typeof this.tableOption.sortChange && typeof this.tableOption.sortChange === 'function') {
-        this.list = this.tableOption.sortChange(val)
+        const result = this.tableOption.sortChange(val)
+        this.list = result.data
+        this.pageOption.total = result.total
       }
     },
     // 搜索回调
     searchChange(val) {
       if (this.tableOption.searchChange && typeof this.tableOption.searchChange === 'function') {
-        this.list = this.tableOption.searchChange(val)
+        const result = this.tableOption.searchChange(val)
+        this.list = result.data
+        this.pageOption.total = result.total
       }
     },
     // 行单击

@@ -14,6 +14,13 @@
   <img width="600" src="https://gitee.com/yuchuanli/avue-plugin-dynamicquery/raw/master/packages/demo/demo.png">
 </p>
 
+## changelog
+fix sortChange、currentChange、scrollbar style
+add table total
+fix other
+currentChange、sortChange、searchChange mast result data total
+
+version 0.1.1
 ## use
 ```
 1.安装
