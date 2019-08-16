@@ -1,17 +1,17 @@
 <template>
   <div>
     <el-input
-      v-model="labelShow"
       :readonly="readonly"
       :autosize="{ minRows: minRows, maxRows: maxRows}"
       :disabled="disabled"
       :clearable="disabled?false:clearable"
       :placeholder="placeholder?placeholder:'请选择'"
+      v-model="labelShow"
       @change="handleChange"
       @click.native="disabled?'':open()">
       <el-button slot="append" icon="el-icon-search" />
     </el-input>
-    <el-dialog :visible.sync="box" title="请选择" append-to-body width="50%" >
+    <el-dialog :visible.sync="box" :close-on-click-modal="false" :close-on-press-escape="false" :width="dialogWidth" title="请选择" append-to-body>
       <el-input v-model="filterText" style="margin-bottom:15px;" placeholder="输入关键字进行过滤" size="small"/>
       <div class="avue-dialog">
         <el-row :gutter="1">
@@ -38,7 +38,6 @@
               <!-- 循环列 -->
               <el-table-column
                 v-for="(column,index) in columnOption"
-                v-if="!column.hide"
                 :prop="column.prop"
                 :key="index"
                 :min-width="60"
@@ -57,7 +56,7 @@
             <div v-if="tableOption.page && listLen">
               <el-pagination
                 :current-page.sync="pageOption.currentPage"
-                :page-size="15"
+                :page-size="pageOption.pageSize"
                 :background="true"
                 :total="pageOption.total"
                 small
@@ -85,7 +84,7 @@
 </template>
 
 <script>
-import { deepClone } from '../util.js'
+import { deepClone, getScreen } from '../util.js'
 import dayjs from 'dayjs'
 export default {
   name: 'AvueDynamicquery',
@@ -155,7 +154,12 @@ export default {
       box: false,
       labelText: this.multiple ? [] : '',
       props: {},
-      pageOption: {}
+      pageOption: {
+        pageSize: 15,
+        total: 0,
+        currentPage: 1
+      },
+      dialogWidth: '50%'
     }
   },
   computed: {
@@ -185,37 +189,45 @@ export default {
     this.dataInit()
     this.columnOption = this.tableOption.column || []
     this.props = this.tableOption.props || { label: 'label', value: 'value' }
-    this.pageOption = { total: this.list.length, currentPage: 1 }
+    this.pageOption.total = this.tableOption.total
   },
   mounted() {
+    const screen = getScreen()
+    this.dialogWidth = screen <= 2 ? '100%' : '50%'
     this.init()
   },
   methods: {
     init() {
-      if (this.multiple) {
-        this.labelText = ['获取中...']
-      } else {
-        this.labelText = '获取中...'
+      window.onresize = () => {
+        setTimeout(() => {
+          const screen = getScreen()
+          this.dialogWidth = screen <= 2 ? '100%' : '50%'
+        }, 0)
       }
-      const check = setInterval(() => {
-        if (this.list.length > 0) {
-          this.tableSelect = []
-          if (this.multiple) {
-            this.labelText = []
-            if (this.text) {
+      if (this.text.length > 0) {
+        if (this.multiple) {
+          this.labelText = ['获取中...']
+        } else {
+          this.labelText = '获取中...'
+        }
+        const check = setInterval(() => {
+          if (this.list.length > 0) {
+            this.tableSelect = []
+            if (this.multiple) {
+              this.labelText = []
               this.text.forEach(ele => {
                 this.findLabel(this.list, ele, this.props)
               })
+            } else {
+              this.labelText = ''
+              this.findLabel(this.list, this.text, this.props)
             }
+            clearInterval(check)
           } else {
             this.labelText = ''
-            this.findLabel(this.list, this.text, this.props)
           }
-          clearInterval(check)
-        } else {
-          this.labelText = ''
-        }
-      }, 100)
+        }, 100)
+      }
     },
     findLabel(data, value, props) {
       const labelKey = props.label
@@ -257,7 +269,10 @@ export default {
     },
     // 页码回调
     currentChange(val) {
-      this.$emit('current-change', val)
+      // 存在配置的currentChangeFunction
+      if (this.tableOption.currentChange && this.tableOption.currentChange instanceof Function) {
+        this.list = this.tableOption.currentChange(val)
+      }
     },
     // 清除选择
     selectClear() {
@@ -266,24 +281,25 @@ export default {
     // 选择回调
     selectionChange(rows) {
       this.tableSelect = []
-      rows.forEach((r, i) => {
+      rows.forEach((r) => {
         this.tableSelect.push({ label: r[this.props.label], value: r[this.props.value] })
       })
       this.handleChange()
     },
     // 排序回调
     sortChange(val) {
-      this.$emit('sort-change', val)
+      if (typeof this.tableOption.sortChange && typeof this.tableOption.sortChange === 'function') {
+        this.list = this.tableOption.sortChange(val)
+      }
     },
     // 搜索回调
     searchChange(val) {
-      // this.$emit('search-change', val)
-      if (typeof this.tableOption.searchChange === 'function') {
+      if (this.tableOption.searchChange && typeof this.tableOption.searchChange === 'function') {
         this.list = this.tableOption.searchChange(val)
       }
     },
     // 行单击
-    rowClick(row, event, column) {
+    rowClick(row) {
       if (!this.multiple) {
         this.tableSelect = []
         const label = row[this.props.label]
@@ -357,11 +373,6 @@ export default {
 }
 </script>
 <style>
-.avue-dialog {
-    max-height: 500px;
-    overflow: hidden;
-    overflow-y: auto;
-}
 .selectdata{
   height: 249px;
 }
@@ -398,5 +409,9 @@ export default {
   .clearfix:after {
     clear: both
   }
-
+*::-webkit-scrollbar {width:7px; height:10px; background-color:transparent;} /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+*::-webkit-scrollbar-track {background-color:#ffffff;  } /*定义滚动条轨道 内阴影+圆角*/
+*::-webkit-scrollbar-thumb {background-color:#a1a3a9; border-radius:6px;} /*定义滑块 内阴影+圆角*/
+.scrollbarHide::-webkit-scrollbar{display: none}
+.scrollbarShow::-webkit-scrollbar{display: block}
 </style>

@@ -2,18 +2,19 @@
   <div style="width:500px">
     <avue-dynamicquery
       :placeholder="placeholder"
-      :multiple="true"
+      :multiple="false"
       :dic="data"
       :options="option"
       :value="value"
-      v-model="value"/>
+      v-model="value"
+    />
     <el-button type="button" @click="click">点我</el-button>
   </div>
 </template>
 <script>
 export default {
   data: () => ({
-    value: [1, 3],
+    value: '',
     placeholder: '请选择...',
     data: [
       {
@@ -86,11 +87,75 @@ export default {
         date: '1994-02-23 00:00:00',
         sex1: '男',
         date1: '1994-02-23 00:00:00'
+      }, {
+        id: 11,
+        name: '赵六6',
+        sex: '男',
+        date: '1994-02-23 00:00:00',
+        sex1: '男',
+        date1: '1994-02-23 00:00:00'
+      }, {
+        id: 12,
+        name: '赵六6',
+        sex: '男',
+        date: '1994-02-23 00:00:00',
+        sex1: '男',
+        date1: '1994-02-23 00:00:00'
+      }, {
+        id: 13,
+        name: '赵六6',
+        sex: '男',
+        date: '1994-02-23 00:00:00',
+        sex1: '男',
+        date1: '1994-02-23 00:00:00'
+      }, {
+        id: 14,
+        name: '赵六6',
+        sex: '男',
+        date: '1994-02-23 00:00:00',
+        sex1: '男',
+        date1: '1994-02-23 00:00:00'
+      }, {
+        id: 15,
+        name: '赵六6',
+        sex: '男',
+        date: '1994-02-23 00:00:00',
+        sex1: '男',
+        date1: '1994-02-23 00:00:00'
+      }, {
+        id: 16,
+        name: '赵六6',
+        sex: '男',
+        date: '1994-02-23 00:00:00',
+        sex1: '男',
+        date1: '1994-02-23 00:00:00'
+      }, {
+        id: 17,
+        name: '赵六6',
+        sex: '男',
+        date: '1994-02-23 00:00:00',
+        sex1: '男',
+        date1: '1994-02-23 00:00:00'
+      }, {
+        id: 18,
+        name: '赵六6',
+        sex: '男',
+        date: '1994-02-23 00:00:00',
+        sex1: '男',
+        date1: '1994-02-23 00:00:00'
+      }, {
+        id: 19,
+        name: '赵六6',
+        sex: '男',
+        date: '1994-02-23 00:00:00',
+        sex1: '男',
+        date1: '1994-02-23 00:00:00'
       }
     ],
     option: {
       title: '表格的标题',
-      page: false,
+      page: true,
+      total: 20,
       props: { label: 'name', value: 'id' },
       search: false,
       column: [
@@ -127,7 +192,6 @@ export default {
         }
       ],
       searchChange: function(val) {
-        debugger
         switch (val) {
           case '1':
             return [{
@@ -240,6 +304,38 @@ export default {
         message: this.value,
         type: 'success'
       })
+    },
+    currentChange(val) {
+     console.log(val)
+    return this.data = [{
+        id: 7,
+        name: '赵六3',
+        sex: '男',
+        date: '1994-02-23 00:00:00',
+        sex1: '男',
+        date1: '1994-02-23 00:00:00'
+      }, {
+        id: 8,
+        name: '赵六4',
+        sex: '男',
+        date: '1994-02-23 00:00:00',
+        sex1: '男',
+        date1: '1994-02-23 00:00:00'
+      }, {
+        id: 9,
+        name: '赵六5',
+        sex: '男',
+        date: '1994-02-23 00:00:00',
+        sex1: '男',
+        date1: '1994-02-23 00:00:00'
+      }, {
+        id: 10,
+        name: '赵六6',
+        sex: '男',
+        date: '1994-02-23 00:00:00',
+        sex1: '男',
+        date1: '1994-02-23 00:00:00'
+      }]
     }
   }
 }

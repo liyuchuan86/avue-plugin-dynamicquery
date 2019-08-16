@@ -1,7 +1,7 @@
-import Dynamicquery from './src/main.vue'
+import dynamicquery from './src/main.vue'
 
-Dynamicquery.install = function(Vue) {
-  Vue.component(Dynamicquery.name, Dynamicquery)
+dynamicquery.install = function(vue) {
+	vue.component(dynamicquery.name, dynamicquery)
 }
 
-export default Dynamicquery
+export default dynamicquery
