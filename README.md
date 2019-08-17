@@ -15,9 +15,9 @@
 </p>
 
 ## changelog
-fix sortChange、currentChange、scrollbar style \n
-add table total \n
-fix other \n
+fix sortChange、currentChange、scrollbar style <br>
+add table total <br>
+fix other <br>
 currentChange、sortChange、searchChange mast result data total
 
 version 0.1.1
