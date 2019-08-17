@@ -7,11 +7,11 @@
 [avue-plugin-dynamicquery](https://www.npmjs.com/package/avue-plugin-dynamicquery)
 
 ## git
-[avue-plugin-dynamicquery](https://gitee.com/yuchuanli/avue-plugin-dynamicquery)
+[avue-plugin-dynamicquery](https://github.com/liyuchuan86/avue-plugin-dynamicquery)
 
 ## demo
 <p align="center">
-  <img width="600" src="https://gitee.com/yuchuanli/avue-plugin-dynamicquery/raw/master/packages/demo/demo.png">
+  <img width="600" src="https://github.com/liyuchuan86/avue-plugin-dynamicquery/raw/master/packages/demo/demo.png">
 </p>
 
 ## changelog
